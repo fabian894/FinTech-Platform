@@ -22,7 +22,7 @@ Also note the Api exported file is also on the repository
 
 DEPLOYMENT INSTRUCTUCTION
 
-Clone the Repository: git clone [repository_url]
+Clone the Repository: git clone https://github.com/fabian894/FinTech-Platform.git
 Update environment variables, such as database credentials on the .env, API keys e.g. Stripe, pusher, and base URLs, as needed.
 
 Docker Setup:
