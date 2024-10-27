@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "fb8bad20-eb97-42fa-90f2-26d5160fa3cd",
+		"name": "FinTech API",
+		"description": "The APIs endpoint is used to make withdrawals, deposit, register users, and also authenticate the users upon login",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39268261"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/register?name=Yemi&email=yemi@gmail.com&password=123456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Yemi"
+						},
+						{
+							"key": "email",
+							"value": "yemi@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/login?email=yemi@gmail.com&password=123456",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "yemi@gmail.com"
+						},
+						{
+							"key": "password",
+							"value": "123456"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzMwMDQ0MjI2LCJleHAiOjE3MzAwNDc4MjYsIm5iZiI6MTczMDA0NDIyNiwianRpIjoiVGxKeFEzVTRVcHUwZVlJYiIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0._wIwmovQBT0sRiRMbMAv9VohG93IDiP5DPTmB9BhaQE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Link Bank Account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzMwMDQ0MjI2LCJleHAiOjE3MzAwNDc4MjYsIm5iZiI6MTczMDA0NDIyNiwianRpIjoiVGxKeFEzVTRVcHUwZVlJYiIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0._wIwmovQBT0sRiRMbMAv9VohG93IDiP5DPTmB9BhaQE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"account_number\": \"1234567890\",\r\n  \"bank_name\": \"Union Bank\",\r\n  \"account_holder_name\": \"Yemi Alade\"\r\n}\r\n\r\n// Linked Bank Accounts with Stripe ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/link-bank-account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"link-bank-account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Linked Accounts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzMwMDQ0MjI2LCJleHAiOjE3MzAwNDc4MjYsIm5iZiI6MTczMDA0NDIyNiwianRpIjoiVGxKeFEzVTRVcHUwZVlJYiIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0._wIwmovQBT0sRiRMbMAv9VohG93IDiP5DPTmB9BhaQE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/linked-accounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"linked-accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Withdrawal",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzMwMDQ0MjI2LCJleHAiOjE3MzAwNDc4MjYsIm5iZiI6MTczMDA0NDIyNiwianRpIjoiVGxKeFEzVTRVcHUwZVlJYiIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0._wIwmovQBT0sRiRMbMAv9VohG93IDiP5DPTmB9BhaQE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/withdraw?amount=3000&description=test01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"withdraw"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "3000"
+						},
+						{
+							"key": "description",
+							"value": "test01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzMwMDQ0MjI2LCJleHAiOjE3MzAwNDc4MjYsIm5iZiI6MTczMDA0NDIyNiwianRpIjoiVGxKeFEzVTRVcHUwZVlJYiIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0._wIwmovQBT0sRiRMbMAv9VohG93IDiP5DPTmB9BhaQE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/deposit?amount=9000&description=test02",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"deposit"
+					],
+					"query": [
+						{
+							"key": "amount",
+							"value": "9000"
+						},
+						{
+							"key": "description",
+							"value": "test02"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transactions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzMwMDQ0MjI2LCJleHAiOjE3MzAwNDc4MjYsIm5iZiI6MTczMDA0NDIyNiwianRpIjoiVGxKeFEzVTRVcHUwZVlJYiIsInN1YiI6IjciLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0._wIwmovQBT0sRiRMbMAv9VohG93IDiP5DPTmB9BhaQE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
