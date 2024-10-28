@@ -41,10 +41,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/transactions', [TransactionController::class, 'index']);
 });
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
-
 Route::get('/test', function () {
     return response()->json(['message' => 'API is working!'], 200);
 });

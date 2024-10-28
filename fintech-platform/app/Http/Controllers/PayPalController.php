@@ -15,16 +15,6 @@ class PayPalController extends Controller
         $this->payPalService = $payPalService;
     }
 
-    // public function linkAccount(Request $request)
-    // {
-    //     $user = Auth::user();
-
-    //     // Logic to generate and redirect the user to PayPal for account linking.
-    //     // Here, you may use the PayPal API to create a payment approval link or any other linking process.
-        
-    //     return response()->json(['message' => 'Redirecting to PayPal for account linking'], 200);
-    // }
-
     public function linkAccount(Request $request)
     {
         $approvalUrl = $this->payPalService->generateApprovalUrl();
