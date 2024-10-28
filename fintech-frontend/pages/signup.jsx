@@ -68,17 +68,17 @@ const Signup = () => {
             <div className="py-10">
               <h2 className="text-3xl font-bold text-green-500 mb-2">Sign up</h2>
               <div className="border-2 w-10 border-green-500 inline-block mb-2"></div>
-              <div className="flex justify-center my-2">
-                <a href="#" className="border-2 border-gray-200 rounded-full p-3 mx-1">
+              {/* <div className="flex justify-center my-2">
+                <a href="https://www.facebook.com/" className="border-2 border-gray-200 rounded-full p-3 mx-1">
                   <FaFacebookF className="text-sm" />
                 </a>
-                <a href="#" className="border-2 border-gray-200 rounded-full p-3 mx-1">
+                <a href="https://www.linkedin.com/" className="border-2 border-gray-200 rounded-full p-3 mx-1">
                   <FaLinkedin className="text-sm" />
                 </a>
-                <a href="#" className="border-2 border-gray-200 rounded-full p-3 mx-1">
+                <a href="https://www.google.com/" className="border-2 border-gray-200 rounded-full p-3 mx-1">
                   <FaGoogle className="text-sm" />
                 </a>
-              </div>
+              </div> */}
               <form onSubmit={handleSubmit} className="flex flex-col items-center">
                 <div className="bg-gray-100 w-full md:w-64 p-2 flex items-center mb-3">
                   <FaUser className="text-gray-400 m-2" />
