@@ -8,9 +8,9 @@ export default function Home() {
     const isAuthenticated = localStorage.getItem('isAuthenticated') === "true";
     // Redirect to login if not authenticated; otherwise, redirect to dashboard
     if (isAuthenticated) {
-      router.push('/login'); 
-    } else {
       router.push('/dashboard'); 
+    } else {
+      router.push('/login'); 
     }
   }, [router]);
 
