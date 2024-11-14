@@ -18,6 +18,8 @@ Route::middleware(['auth:api'])->group(function () {
     });
 });
 
+Broadcast::routes(['middleware' => ['auth:api']]);
+
 // Using Stripe
 Route::middleware('auth:api')->post('/link-bank-account', [BankAccountController::class, 'linkBankAccount']);
 

@@ -1,52 +1,53 @@
 import { useState, useEffect } from 'react';
-import apiClient from '../apiClient'; 
-import { toast } from 'react-toastify'; 
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
+import apiClient from '../apiClient';
+import { toast } from 'react-toastify';
+import echo from '../echo'; // Import the echo instance
 
-import 'react-toastify/dist/ReactToastify.css';
-
-export default function WithdrawalForm({ userId }) {  // Ensure to pass userId as a prop to this component
+export default function WithdrawalForm({ userId }) {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Initialize Laravel Echo with Pusher
-    window.Pusher = Pusher;
-    const echo = new Echo({
-      broadcaster: 'pusher',
-      key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY,
-      cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
-      forceTLS: true,
-    });
+    if (!userId) return; // Avoid running if no userId
 
     // Listen to user-specific channel for TransactionUpdated events
-    echo.private(`user.${userId}`)
-      .listen('TransactionUpdated', (event) => {
-        console.log('Transaction updated:', event.transaction);
-        toast.info(`Transaction Update: ${event.transaction.message}`, { position: 'top-right' });
-      });
+    const channel = echo.private(`user.${userId}`);
+    channel.listen('TransactionUpdated', (event) => {
+      console.log('Transaction updated:', event.transaction);
+      toast.info(`Transaction Update: ${event.transaction.message}`, { position: 'top-right' });
+    });
 
     // Clean up the Echo connection when component unmounts
     return () => {
-      echo.leave(`user.${userId}`);
+      channel.leave();
     };
   }, [userId]);
 
   const handleWithdrawal = async (event) => {
     event.preventDefault();
     setLoading(true);
+
+    // Ensure amount is a valid positive number
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount <= 0) {
+      toast.error('Please enter a valid amount.', { position: 'top-right' });
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await apiClient('/withdraw', 'POST', {
-        amount,
+        amount: parsedAmount,
         description,
       });
-      toast.success(response.message || 'Withdrawal successful!', { position: 'top-right' }); 
+      toast.success(response.message || 'Withdrawal successful!', { position: 'top-right' });
+      
+      // Reset form fields
       setAmount('');
       setDescription('');
     } catch (error) {
-      toast.error(error.message || 'Withdrawal failed. Please try again.', { position: 'top-right' }); 
+      toast.error(error.message || 'Withdrawal failed. Please try again.', { position: 'top-right' });
     } finally {
       setLoading(false);
     }
@@ -56,7 +57,7 @@ export default function WithdrawalForm({ userId }) {  // Ensure to pass userId a
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-200">
       <form onSubmit={handleWithdrawal} className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
         <h2 className="text-2xl font-bold mb-6 text-gray-700">Withdraw Funds</h2>
-        
+
         <div className="mb-4">
           <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
             Withdrawal Amount

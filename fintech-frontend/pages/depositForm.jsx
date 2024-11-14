@@ -1,51 +1,53 @@
 import { useState, useEffect } from 'react';
 import apiClient from '../apiClient';
 import { toast } from 'react-toastify';
-import Echo from 'laravel-echo';
-import Pusher from 'pusher-js';
+import echo from '../echo';  // Import the echo instance
 
-export default function DepositForm({ userId }) {  // Ensure to pass userId as a prop to this component
+export default function DepositForm({ userId }) {
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Initialize Laravel Echo with Pusher
-    window.Pusher = Pusher;
-    const echo = new Echo({
-      broadcaster: 'pusher',
-      key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY,
-      cluster: process.env.NEXT_PUBLIC_PUSHER_APP_CLUSTER,
-      forceTLS: true,
-    });
+    if (!userId || !echo) return; // Avoid running if no userId or echo is undefined
 
     // Listen to user-specific channel for TransactionUpdated events
-    echo.private(`user.${userId}`)
-      .listen('TransactionUpdated', (event) => {
-        console.log('Transaction updated:', event.transaction);
-        toast.info(`Transaction Update: ${event.transaction.message}`, { position: 'top-right' });
-      });
+    const channel = echo.private(`user.${userId}`);
+    channel.listen('TransactionUpdated', (event) => {
+      console.log('Transaction updated:', event.transaction);
+      toast.info(`Transaction Update: ${event.transaction.message}`, { position: 'top-right' });
+    });
 
     // Clean up the Echo connection when component unmounts
     return () => {
-      echo.leave(`user.${userId}`);
+      channel.leave();
     };
   }, [userId]);
 
   const handleDeposit = async (event) => {
     event.preventDefault();
     setLoading(true);
+
+    // Ensure amount is a valid positive number
+    if (amount <= 0) {
+      toast.error('Please enter a valid amount.', { position: 'top-right' });
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await apiClient('/deposit', 'POST', {
         amount,
         description,
       });
       toast.success(response.message || 'Deposit successful!', { position: 'top-right' });
+
       // Reset form fields
       setAmount('');
       setDescription('');
     } catch (error) {
-      toast.error(error.message || 'Deposit failed. Please try again.', { position: 'top-right' });
+      const errorMessage = error.response?.data?.message || error.message || 'Deposit failed. Please try again.';
+      toast.error(errorMessage, { position: 'top-right' });
     } finally {
       setLoading(false);
     }

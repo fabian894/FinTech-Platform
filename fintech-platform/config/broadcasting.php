@@ -19,6 +19,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Broadcast Middleware
+    |--------------------------------------------------------------------------
+    |
+    | If you're using API authentication (e.g., `auth:api` or `auth:sanctum`),
+    | define the middleware here so that it applies to the broadcasting auth route.
+    |
+    */
+    
+    'broadcast' => [
+        'middleware' => ['api', 'auth:api'], // Use 'auth:sanctum' if using Sanctum
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Broadcast Connections
     |--------------------------------------------------------------------------
     |
@@ -30,17 +44,16 @@ return [
 
     'connections' => [
 
-       'pusher' => [
-    'driver' => 'pusher',
-    'key' => env('PUSHER_APP_KEY'),
-    'secret' => env('PUSHER_APP_SECRET'),
-    'app_id' => env('PUSHER_APP_ID'),
-    'options' => [
-        'cluster' => env('PUSHER_APP_CLUSTER'),
-        'useTLS' => true,
-    ],
-],
-
+        'pusher' => [
+            'driver' => 'pusher',
+            'key' => env('PUSHER_APP_KEY'),
+            'secret' => env('PUSHER_APP_SECRET'),
+            'app_id' => env('PUSHER_APP_ID'),
+            'options' => [
+                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'useTLS' => true,
+            ],
+        ],
 
         'ably' => [
             'driver' => 'ably',

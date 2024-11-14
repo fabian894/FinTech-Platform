@@ -13,7 +13,11 @@ const RecentTransfers = () => {
       try {
         // Fetch recent transactions (adjust the endpoint as necessary)
         const transactionsResponse = await apiClient('/transactions', 'GET');
-        setTransactions(transactionsResponse);
+
+        // Sort transactions by `created_at` in descending order and get the last 5 transactions
+        const sortedTransactions = transactionsResponse.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        const recentFiveTransactions = sortedTransactions.slice(0, 5);
+        setTransactions(recentFiveTransactions);
 
         // Fetch linked bank accounts
         const linkedAccountsResponse = await apiClient('/linked-accounts', 'GET');
