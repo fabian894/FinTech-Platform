@@ -1,5 +1,5 @@
 # FinTech-Platform
-Simbrella is a secure and scalable FinTech platform designed to facilitate seamless financial transactions. Built using Laravel for the backend and Next.js with React for the frontend, this application provides users with a robust interface for managing their financial activities, including user registration, bank account linking, deposits, and withdrawals.
+This is a secure and scalable FinTech platform designed to facilitate seamless financial transactions. Built using Laravel for the backend and Next.js with React for the frontend, this application provides users with a robust interface for managing their financial activities, including user registration, bank account linking, deposits, and withdrawals.
 
 Key Features
 User Authentication: Secure registration and login functionality using JWT for user authentication.
